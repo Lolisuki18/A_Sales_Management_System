@@ -10,8 +10,27 @@ namespace DataAccessObjects
     //Quản lý khách hàng: Xem, thêm, chỉnh sửa và xóa thông tin khách hàng.
     public class CustomerDAO
     {
+        //Singleton instance of LucyContenxt
+        private static CustomerDAO? instance = null;
+        private static readonly object lockObj = new();
+
+        //Constructor private : để đảm bảo chỉ có một instance của CustomerDAO được tạo ra
+        private CustomerDAO() { }
+
+        //Public property để lấy instance của CustomerDAO duy nhất
+        public static CustomerDAO Instance
+        {
+            get
+            {
+                lock (lockObj)
+                {
+                    return instance ??= new CustomerDAO();
+                }
+            }
+        }
+
         //chức năng xem danh sách khách hàng 
-        public static List<Customer> GetCustomers()
+        public  List<Customer> GetCustomers()
         {
             var listCustomer = new List<Customer>();
             try
@@ -26,7 +45,7 @@ namespace DataAccessObjects
             return listCustomer;
         }
         //chức năng thêm khách hàng
-        public static bool AddCustomer(Customer customer)
+        public bool AddCustomer(Customer customer)
         {
             try
             {
@@ -42,7 +61,7 @@ namespace DataAccessObjects
 
         }
         //chức năng chỉnh sửa thông tin của khách hàng
-        public static bool UpdateCustomer(Customer customer)
+        public  bool UpdateCustomer(Customer customer)
         {
             try
             {
@@ -58,7 +77,7 @@ namespace DataAccessObjects
         }
         //chức năng xoá khách hàng 
 
-        public static bool DeleteCustomer(Customer customer)
+        public  bool DeleteCustomer(Customer customer)
         {
             try
             {
@@ -82,7 +101,7 @@ namespace DataAccessObjects
         }
         //Các chức năng tìm kiếm khách hàng theo số điện thoại và mã khách hàng
         //tìm theo mã khách hàng
-        public static Customer? GetCustomerById(int customerId)
+        public  Customer? GetCustomerById(int customerId)
         {
             try
             {
@@ -102,7 +121,7 @@ namespace DataAccessObjects
         }
 
         //tìm theo số điện thoại 
-        public static Customer? GetCustomerByPhone(string phone)
+        public  Customer? GetCustomerByPhone(string phone)
         {
             try
             {

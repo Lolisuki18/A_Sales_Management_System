@@ -11,25 +11,25 @@ namespace Repositories
     public class ProductRepository : IProductRepository
     {
         //thêm 1 sản phẩm
-        public bool AddProduct(Product product) => ProductDAO.AddProduct(product);
+        public bool AddProduct(Product product) => ProductDAO.Instance.AddProduct(product);
 
         //xoá 1 sản phẩm
-        public bool DeleteProduct(Product product) => ProductDAO.DeleteProduct(product);
+        public bool DeleteProduct(Product product) => ProductDAO.Instance.DeleteProduct(product);
 
         //Lấy tất cả sản phẩm
-        public List<Product> GetAllProduct() => ProductDAO.GetAllProduct();
+        public List<Product> GetAllProduct() => ProductDAO.Instance.GetAllProduct();
 
         //Lấy danh sách cảc sản phẩm đã ngừng bán
-        public List<Product>? GetDiscontinuedProducts() => ProductDAO.GetDiscontinuedProducts();
+        public List<Product>? GetDiscontinuedProducts() => ProductDAO.Instance.GetDiscontinuedProducts();
 
         //tìm kiếm sản phẩm theo id
-        public Product? GetProductById(int productId) => ProductDAO.GetProductById(productId);
+        public Product? GetProductById(int productId) => ProductDAO.Instance.GetProductById(productId);
 
         //Tìm kiếm sản phẩm theo tên gần đúng
-        public List<Product>? SearchByName(string keyWords) => ProductDAO.SearchByName(keyWords);
+        public List<Product>? SearchByName(string keyWords) => ProductDAO.Instance.SearchByName(keyWords);
 
 
-        public bool UpdateProduct(Product product) => ProductDAO.UpdateProduct(product);
+        public bool UpdateProduct(Product product) => ProductDAO.Instance.UpdateProduct(product);
         
     }
 }

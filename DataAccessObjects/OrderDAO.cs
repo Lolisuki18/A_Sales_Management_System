@@ -11,10 +11,28 @@ namespace DataAccessObjects
 {
     public class OrderDAO
     {
+        //SingleTon instance
+        private static OrderDAO? instance = null;
+        //tạo khoá để đảm bảo thread safety khi truy cập vào instance
+        private static readonly object lockObj = new();
+
+        //Constructor private : để đảm bảo chỉ có 1 instacne của OrderDAO mà thôi
+        private OrderDAO() { }
+
+        //tạo public Property để lấy instance của OrderDAO duy nhất
+        public static OrderDAO Instance {
+            get
+            {
+                lock (lockObj)
+                {
+                    return instance ??= new OrderDAO();
+                }
+            }
+        }
         //Chức năng CRUD cho đơn hàng
 
         //Lấy tất cả đơn hàng 
-        public static List<Order> GetAllOrders()
+        public  List<Order> GetAllOrders()
         {
             var listOrders = new List<Order>();
             try
@@ -29,7 +47,7 @@ namespace DataAccessObjects
             return listOrders;
         }
         //thêm đơn hàng 
-        public static bool AddOrder(Order order)
+        public bool AddOrder(Order order)
         {
             try
             {
@@ -46,7 +64,7 @@ namespace DataAccessObjects
             }
         }
         //Cập nhập thông tin đơn hàng
-        public static bool UpdateOrder(Order order)
+        public  bool UpdateOrder(Order order)
         {
             try
             {
@@ -62,7 +80,7 @@ namespace DataAccessObjects
             }
         }
         //xoá 1 đơn hàng 
-        public static bool DeleteOrder(Order order)
+        public  bool DeleteOrder(Order order)
         {
             try
             {
@@ -85,7 +103,7 @@ namespace DataAccessObjects
         }
         //Một số hàm tìm kiếm 
         //Tìm kiếm đơn hàng theo OrderId
-        public static Order? GetOrderById(int orderId)
+        public  Order? GetOrderById(int orderId)
         {
             try
             {
@@ -98,7 +116,7 @@ namespace DataAccessObjects
             }
         }
         //tìm kiếm đơn hàng theo customerId 
-        public static List<Order> GetOrderByCustomerId(int customerId)
+        public  List<Order> GetOrderByCustomerId(int customerId)
         {
             var listOrders = new List<Order>();
             try

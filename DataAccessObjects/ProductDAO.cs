@@ -9,11 +9,31 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DataAccessObjects
 {
+    
     //Quản lý sản phẩm: Quản lý thông tin sản phẩm, bao gồm hàng tồn kho và giá cả.
     public class ProductDAO
     {
+        //Singleton Instance 
+        private static ProductDAO? instance = null;
+        //tạo khoá để đảm bảo thread safety khi truy cập vào instance
+        private static readonly object lockObj = new();
+
+        //Constructor private : để đảm bảo chỉ có 1 instance của ProductDAO
+        private ProductDAO() { }
+        //Tạo public ProperTy để lấy instance của ProductDAO duy nhất
+        public static ProductDAO Instance
+        {
+            get
+            {
+                //Kiểm, ta xem instance đã được khởi tạo hay chưa ?
+                lock (lockObj)
+                {
+                    return instance ??= new ProductDAO();
+                }
+            }
+        }
         //lấy ra tất cả sản phẩm từ cơ sở dữ liệu
-        public static List<Product> GetAllProduct()
+        public  List<Product> GetAllProduct()
         {
             var listProduct = new List<Product>();
             try
@@ -29,7 +49,7 @@ namespace DataAccessObjects
         }
         
         //thêm 1 sản phầm mới vào cơ sở dữ liệu
-        public static bool AddProduct(Product product)
+        public  bool AddProduct(Product product)
         {
             try
             {
@@ -46,7 +66,7 @@ namespace DataAccessObjects
         }
         
         //Cập nhập thông tin của 1 sản phẩm
-        public static bool UpdateProduct(Product product)
+        public  bool UpdateProduct(Product product)
         {
             try
             {
@@ -74,7 +94,7 @@ namespace DataAccessObjects
         }
 
         //Xoá 1 sản phẩm khởi cơ sở dữ liệu 
-        public static bool DeleteProduct(Product product)
+        public  bool DeleteProduct(Product product)
         {
             try
             {
@@ -99,7 +119,7 @@ namespace DataAccessObjects
         //Viết hàm để tìm kiếm 
         
         //tìm kiếm theo ID
-        public static Product? GetProductById(int productId)
+        public  Product? GetProductById(int productId)
         {
             try
             {
@@ -112,7 +132,7 @@ namespace DataAccessObjects
             }
         }
         //Tìm kiếm theo tên gần đúng 
-        public static List<Product>? SearchByName(string keyWords)
+        public  List<Product>? SearchByName(string keyWords)
         {
             try
             {
@@ -126,7 +146,7 @@ namespace DataAccessObjects
         }
 
         //tìm theo sản phẩm đã ngừng bán 
-        public static List<Product>? GetDiscontinuedProducts()
+        public  List<Product>? GetDiscontinuedProducts()
         {
             try
             {
