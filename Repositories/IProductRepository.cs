@@ -10,23 +10,23 @@ namespace Repositories
     public interface IProductRepository
     {
         //Lấy tất cả sản phẩm 
-        List<Product> GetAllProduct();
+        public List<Product> GetAllProduct();
 
         //thêm 1 sản phẩm
-        bool AddProduct(Product product);
+        public bool AddProduct(Product product);
         //Cập nhập thông tin sản phẩm 
-        bool UpdateProduct(Product product);
+        public bool UpdateProduct(Product product);
 
         //Xoá 1 sản phẩm
-        bool DeleteProduct(Product product);
+        public bool DeleteProduct(Product product);
 
         //Tìm kiếm sản phẩm id
-        Product? GetProductById(int productId);
+        public Product? GetProductById(int productId);
 
         //Tìm kiếm sản phẩm theo tên gần đúng 
-        List<Product>? SearchByName(string keyWords);
+        public List<Product>? SearchByName(string keyWords);
 
         //Tìm kiếm các sản phẩm đã ngừng bán 
-        List<Product>? GetDiscontinuedProducts();
+        public List<Product>? GetDiscontinuedProducts();
     }
 }

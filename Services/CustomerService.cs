@@ -20,7 +20,7 @@ namespace Services
         public bool AddCustomer(Customer customer)
         {
             //Kiểm tra xem có nhập liệu companyName và phone hay không ?
-            if (string.IsNullOrWhiteSpace(customer.CompanyName)||
+            if (string.IsNullOrWhiteSpace(customer.CompanyName) ||
                 string.IsNullOrWhiteSpace(customer.Phone))
             {
                 Console.WriteLine("CompanyName and Phone is requird");

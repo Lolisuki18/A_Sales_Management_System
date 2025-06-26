@@ -10,18 +10,18 @@ namespace Repositories
     public interface ICustomerRepository
     {
        //Lấy tất cả danh sách khách hàng từ cơ sở dữ liệu
-        List<Customer> GetCustomers();
+        public List<Customer> GetCustomers();
         //Thêm một khách hàng mới
-        bool AddCustomer(Customer customer);
+        public bool AddCustomer(Customer customer);
         //Cập nhập thông tin của khách hàng 
-        bool UpdateCustomer(Customer customer);
+        public bool UpdateCustomer(Customer customer);
         //Xoá khách hàng 
-        bool DeleteCustomer(Customer customer);
+        public bool DeleteCustomer(Customer customer);
         //Tìm kiếm theo mã khách hàng 
-        Customer? GetCustomerById(int customerId);
+        public Customer? GetCustomerById(int customerId);
 
         //Tìm kiếm theo số điện thoại 
-        Customer? GetCustomerByPhone(string phone);
+        public Customer? GetCustomerByPhone(string phone);
 
     }
 }
