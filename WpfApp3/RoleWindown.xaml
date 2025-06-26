@@ -16,10 +16,10 @@
             <Button x:Name="btnReportMng" Content="Reports"  Margin="5" Click="btnReportMng_Click"/>
 
             <!-- Customer Buttons -->
-            <Button x:Name="btnMyOrders" Content="My Orders"  Margin="5"/>
-            <Button x:Name="btnEditProfile" Content="Edit Profile"  Margin="5"/>
+            <Button x:Name="btnMyOrders" Content="My Orders"  Margin="5" Click="btnMyOrders_Click"/>
+            <Button x:Name="btnEditProfile" Content="Edit Profile"  Margin="5" Click="btnEditProfile_Click"/>
 
-            <Button Content="Logout" Margin="5" Background="Tomato" Foreground="White"/>
+            <Button x:Name="btnLogout" Content="Logout" Margin="5" Background="Tomato" Foreground="White" Click="btnLogout_Click"/>
         </StackPanel>
 
         <!-- Main Content -->

@@ -144,8 +144,9 @@ namespace DataAccessObjects
                 using var context = new LucyContext();
                 listOrders = context.Orders.Where(o => o.CustomerId == customerId)
                     .Include(o => o.Customer)//Bao gồm thông tin của khách hàng đó
-                    .Include(o => o.OrderDetails)//Bao gồm thông tin chi tiết đơn hàng
                     .Include(o => o.Employee)//Bao gồm thông tin nhân viên nếu cần
+                    .Include(o => o.OrderDetails)//Bao gồm thông tin chi tiết đơn hàng
+                    .ThenInclude(od => od.Product)
                     .ToList();
             }
             catch (Exception ex)

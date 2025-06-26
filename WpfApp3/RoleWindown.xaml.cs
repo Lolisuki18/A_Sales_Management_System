@@ -100,5 +100,24 @@ namespace LeNguyenAnNinhWpfApp
             var reportView = new ManagerReport();
             MainContent.Content = reportView;
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
+
+        private void btnMyOrders_Click(object sender, RoutedEventArgs e)
+        {
+            var myOrdersView = new MyOrder(_loggedCustomer);
+            MainContent.Content = myOrdersView;
+        }
+
+        private void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            var editProfileView = new CustomerProfile(_loggedCustomer);
+            MainContent.Content = editProfileView;
+        }
     }
 }
