@@ -60,13 +60,13 @@ namespace LeNguyenAnNinhWpfApp
                 //  string CompanyName 
                 string companyName = txtCompany.Text;
                 // string? ContactName 
-                string? contactName = txtContact.Text;
+                string contactName = txtContact.Text;
                 // string? ContactTitle 
-                string? contactTitle = txtTitle.Text;
+                string contactTitle = txtTitle.Text;
                 //string? Address 
-                string? address = txtAddress.Text;
+                string address = txtAddress.Text;
                 // string? Phone 
-                string? phone = txtPhone.Text;
+                string phone = txtPhone.Text;
                 var customer = new Customer
                 {
                     CompanyName = companyName,

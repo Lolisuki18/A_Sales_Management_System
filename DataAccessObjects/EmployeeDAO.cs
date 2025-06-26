@@ -23,7 +23,22 @@ namespace DataAccessObjects
                 }
             }
         }
-        
+
+        //Lấy toàn bộ employee từ cơ sở dữ liệu
+        public List<Employee> GetAllEmployees()
+        {
+            try
+            {
+                using var context = new LucyContext();
+                //Lấy toàn bộ nhân viên từ cơ sở dữ liệu
+                return context.Employees.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in GetAllEmployees: " + ex.Message);
+                return new List<Employee>();
+            }
+        }
         public Employee? GetEmpByUsenameAndPassword(string useName, string password)
         {
             try

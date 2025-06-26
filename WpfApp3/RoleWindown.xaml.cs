@@ -74,13 +74,16 @@ namespace LeNguyenAnNinhWpfApp
             // Khởi tạo customer view và hiển thị nó trong ContentControl
             var customerView = new ManagerCustomer();
             MainContent.Content = customerView;
+           
         }
 
         private void btnProductMng_Click(object sender, RoutedEventArgs e)
         {
             // Khởi tạo product view và hiển thị nó trong ContentControl
             var productView = new ManagerProduct();
+           
             MainContent.Content = productView;
+          
         }
 
         private void btnOrderMng_Click(object sender, RoutedEventArgs e)
@@ -88,6 +91,7 @@ namespace LeNguyenAnNinhWpfApp
             // Khởi tạo product view và hiển thị nó trong ContentControl
             var orderView = new ManagerOrder();
             MainContent.Content = orderView;
+        
         }
 
         private void btnReportMng_Click(object sender, RoutedEventArgs e)

@@ -10,6 +10,9 @@ namespace Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
+        public List<Employee> GetAllEmployees() => EmployeeDAO.Instance.GetAllEmployees();
+
+
         public Employee? GetEmpByUsenameAndPassword(string useName, string password) => EmployeeDAO.Instance.GetEmpByUsenameAndPassword(useName, password);
 
     }

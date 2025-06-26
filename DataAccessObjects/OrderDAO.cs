@@ -20,7 +20,8 @@ namespace DataAccessObjects
         private OrderDAO() { }
 
         //tạo public Property để lấy instance của OrderDAO duy nhất
-        public static OrderDAO Instance {
+        public static OrderDAO Instance
+        {
             get
             {
                 lock (lockObj)
@@ -32,13 +33,18 @@ namespace DataAccessObjects
         //Chức năng CRUD cho đơn hàng
 
         //Lấy tất cả đơn hàng 
-        public  List<Order> GetAllOrders()
+        public List<Order> GetAllOrders()
         {
             var listOrders = new List<Order>();
             try
             {
                 using var context = new LucyContext();
-                listOrders = context.Orders.ToList();
+                listOrders = context.Orders
+                                    .Include(o => o.Customer)
+                                    .Include(o => o.Employee)
+                                      .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                                    .ToList();
             }
             catch (Exception ex)
             {
@@ -116,20 +122,21 @@ namespace DataAccessObjects
         }
         //Một số hàm tìm kiếm 
         //Tìm kiếm đơn hàng theo OrderId
-        public  Order? GetOrderById(int orderId)
+        public Order? GetOrderById(int orderId)
         {
             try
             {
                 using var context = new LucyContext();
                 return context.Orders.SingleOrDefault(o => o.OrderId == orderId);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine("Error in GetOrderById : " + ex.Message);
                 return null;
             }
         }
         //tìm kiếm đơn hàng theo customerId 
-        public  List<Order> GetOrderByCustomerId(int customerId)
+        public List<Order> GetOrderByCustomerId(int customerId)
         {
             var listOrders = new List<Order>();
             try
@@ -140,7 +147,8 @@ namespace DataAccessObjects
                     .Include(o => o.OrderDetails)//Bao gồm thông tin chi tiết đơn hàng
                     .Include(o => o.Employee)//Bao gồm thông tin nhân viên nếu cần
                     .ToList();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine("Error in GetOrderByCustomerId : " + ex.Message);
             }

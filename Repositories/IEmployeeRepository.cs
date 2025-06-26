@@ -10,5 +10,7 @@ namespace Repositories
     public interface IEmployeeRepository
     {
         public Employee? GetEmpByUsenameAndPassword(string useName, string password);
+        public List<Employee> GetAllEmployees();
     }
+
 }

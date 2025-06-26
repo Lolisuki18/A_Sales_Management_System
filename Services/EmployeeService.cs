@@ -17,6 +17,9 @@ namespace Services
             this.iemployeeRepository = iemployeeRepository;
         }
 
+        public List<Employee> GetAllEmployees() => iemployeeRepository.GetAllEmployees();
+
+
         public Employee? GetEmpByUsenameAndPassword(string useName, string password) => iemployeeRepository.GetEmpByUsenameAndPassword(useName, password);
        
     }

@@ -154,7 +154,7 @@ namespace DataAccessObjects
         }
 
         //tìm theo sản phẩm đã ngừng bán 
-        public  List<Product>? GetDiscontinuedProducts()
+        public List<Product>? GetDiscontinuedProducts()
         {
             try
             {
@@ -162,7 +162,8 @@ namespace DataAccessObjects
                 return context.Products
                               .Where(p => p.Discontinued == true)
                               .ToList();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error in GetDiscontinuedProducts" + ex.Message);
                 return null;
