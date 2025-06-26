@@ -10,10 +10,10 @@
         <!-- Sidebar Menu -->
         <StackPanel DockPanel.Dock="Left" Width="180" Background="#EEE">
             <!-- Admin Buttons -->
-            <Button x:Name="btnCustomerMng" Content="Customers"  Margin="5"/>
-            <Button x:Name="btnProductMng" Content="Products"  Margin="5"/>
-            <Button x:Name="btnOrderMng" Content="Orders"  Margin="5"/>
-            <Button x:Name="btnReportMng" Content="Reports"  Margin="5"/>
+            <Button x:Name="btnCustomerMng" Content="Customers"  Margin="5" Click="btnCustomerMng_Click"/>
+            <Button x:Name="btnProductMng" Content="Products"  Margin="5" Click="btnProductMng_Click"/>
+            <Button x:Name="btnOrderMng" Content="Orders"  Margin="5" Click="btnOrderMng_Click"/>
+            <Button x:Name="btnReportMng" Content="Reports"  Margin="5" Click="btnReportMng_Click"/>
 
             <!-- Customer Buttons -->
             <Button x:Name="btnMyOrders" Content="My Orders"  Margin="5"/>
@@ -24,5 +24,8 @@
 
         <!-- Main Content -->
         <ContentControl x:Name="MainContent" />
+       
+
+
     </DockPanel>
 </Window>

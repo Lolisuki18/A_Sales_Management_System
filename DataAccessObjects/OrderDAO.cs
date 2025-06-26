@@ -64,23 +64,36 @@ namespace DataAccessObjects
             }
         }
         //Cập nhập thông tin đơn hàng
-        public  bool UpdateOrder(Order order)
+        public bool UpdateOrder(Order order)
         {
             try
             {
                 using var context = new LucyContext();
-                context.Entry<Order>(order).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                context.SaveChanges(); // lưu thay đổi vào cơ sở dữ liệu
+                var existing = context.Orders.FirstOrDefault(o => o.OrderId == order.OrderId);
+
+                if (existing == null)
+                {
+                    Debug.WriteLine("Order not found.");
+                    return false;
+                }
+
+                // Cập nhật từng field đơn giản, không đụng vào navigation để tránh lỗi
+                existing.CustomerId = order.CustomerId;
+                existing.EmployeeId = order.EmployeeId;
+                existing.OrderDate = order.OrderDate;
+
+                context.SaveChanges();
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error in UpdateOrder : " + ex.Message);
+                Debug.WriteLine("Error in UpdateOrder: " + ex.Message);
                 return false;
             }
         }
+
         //xoá 1 đơn hàng 
-        public  bool DeleteOrder(Order order)
+        public bool DeleteOrder(Order order)
         {
             try
             {

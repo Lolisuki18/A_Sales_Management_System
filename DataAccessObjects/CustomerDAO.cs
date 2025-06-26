@@ -61,16 +61,31 @@ namespace DataAccessObjects
 
         }
         //chức năng chỉnh sửa thông tin của khách hàng
-        public  bool UpdateCustomer(Customer customer)
+        public bool UpdateCustomer(Customer customer)
         {
             try
             {
                 using var context = new LucyContext();
-                //context.Customers.Update(customer);//cập nhập thông tin khách hàng
-                context.Entry<Customer>(customer).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                context.SaveChanges();// lưu thay đổi vào cơ sở dữ liệu
+                var existing = context.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
+                if (existing == null)
+                {
+                    Console.WriteLine("Customer not found.");
+                    return false;
+                }
+
+                // Cập nhật thủ công từng field
+
+                existing.CompanyName = customer.CompanyName;
+                existing.ContactName = customer.ContactName;
+                existing.ContactTitle = customer.ContactTitle;
+                existing.Phone = customer.Phone;
+                existing.Address = customer.Address;
+
+                context.SaveChanges();
                 return true;
-            }catch(Exception ex){
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine("Error in UpdateCustomer: " + ex.Message);
                 return false;
             }

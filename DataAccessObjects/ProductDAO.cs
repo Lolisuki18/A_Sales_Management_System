@@ -64,29 +64,37 @@ namespace DataAccessObjects
                 return false;
             }
         }
-        
+
         //Cập nhập thông tin của 1 sản phẩm
-        public  bool UpdateProduct(Product product)
+        public bool UpdateProduct(Product product)
         {
             try
             {
                 using var context = new LucyContext();
-                //context.Products.Update(product);
-                context.Entry<Product>(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
-                //context.Entry<Product>(product):
-                    //Đây là cách truy cập vào entry tracking(bộ theo dõi thay đổi) của EF cho entity product.
+                // Tìm Product gốc từ DB
+                var existing = context.Products.FirstOrDefault(p => p.ProductId == product.ProductId);
+                if (existing == null)
+                {
+                    Console.WriteLine("Product not found.");
+                    return false;
+                }
 
-                    //EF theo dõi mọi object đã attach vào context, và ghi nhận trạng thái(thêm mới, sửa, xoá...).
+                // Cập nhật từng field cơ bản, không đụng navigation
+                existing.ProductName = product.ProductName;
+                existing.SupplierId = product.SupplierId;
+                existing.CategoryId = product.CategoryId;
+                existing.QuantityPerUnit = product.QuantityPerUnit;
+                existing.UnitPrice = product.UnitPrice;
+                existing.UnitsInStock = product.UnitsInStock;
+                existing.UnitsOnOrder = product.UnitsOnOrder;
+                existing.ReorderLevel = product.ReorderLevel;
+                existing.Discontinued = product.Discontinued;
 
-                //.State = EntityState.Modified:
-
-                    //Bạn đang gắn cờ cho EF biết rằng object product này đã bị chỉnh sửa(modified).
-
-                    //EF sẽ không cần so sánh từng property, nó sẽ coi như tất cả đều thay đổi — và khi gọi SaveChanges(), nó sẽ generate câu UPDATE cho toàn bộ field.
                 context.SaveChanges();
                 return true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error in UpdateProduct: " + ex.Message);
                 return false;
