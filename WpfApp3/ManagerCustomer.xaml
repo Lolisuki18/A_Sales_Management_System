@@ -34,6 +34,7 @@
                 <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}" Width="50"/>
                 <DataGridTextColumn Header="Company" Binding="{Binding CompanyName}" Width="*"/>
                 <DataGridTextColumn Header="Contact" Binding="{Binding ContactName}" Width="*"/>
+                <DataGridTextColumn Header="ContactTitle" Binding="{Binding ContactTitle}" Width="*"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="*"/>
                 <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="2*"/>
             </DataGrid.Columns>

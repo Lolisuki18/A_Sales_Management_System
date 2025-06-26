@@ -118,7 +118,11 @@ namespace LeNguyenAnNinhWpfApp
                     Phone = phone
                 };
                 // Thêm khách hàng mới vào cơ sở dữ liệu
-                CustomerDAO.Instance.UpdateCustomer(customer);
+               bool update =  CustomerDAO.Instance.UpdateCustomer(customer);
+                if (!update)
+                {
+                    MessageBox.Show($"Đã chỉnh sửa khách hàng thất bại:", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 MessageBox.Show($"Đã chỉnh sửa khách hàng thành công:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 // Tải lại danh sách khách hàng
                 LoadCustomerList();

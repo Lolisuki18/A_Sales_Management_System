@@ -69,8 +69,11 @@
             <DataGrid x:Name="dgOrders" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgOrders_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="80"/>
-                    <DataGridTextColumn Header="Customer" Binding="{Binding Customer.CompanyName}" Width="*"/>
-                    <DataGridTextColumn Header="Employee" Binding="{Binding Employee.Name}" Width="*"/>
+                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerName}" Width="*"/>
+                    <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeName}" Width="*"/>
+                    <DataGridTextColumn Header="Products" Binding="{Binding ProductNames}" Width="2*"/>
+                    <DataGridTextColumn Header="Quantities" Binding="{Binding Quantities}" Width="*"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount}" Width="120"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding OrderDate, StringFormat=dd/MM/yyyy}" Width="120"/>
                 </DataGrid.Columns>
             </DataGrid>

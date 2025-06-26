@@ -1,5 +1,6 @@
 ﻿using BusinessObjects;
 using DataAccessObjects;
+using LeNguyenAnNinhWpfApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -50,10 +51,24 @@ namespace LeNguyenAnNinhWpfApp
             cbEmployees.DisplayMemberPath = "Name";
             cbEmployees.SelectedValuePath = "EmployeeId";
 
+            dgOrders.ItemsSource = null;
             currentDetails = new List<OrderDetail>();
             dgOrderDetails.ItemsSource = currentDetails;
 
-            dgOrders.ItemsSource = OrderDAO.Instance.GetAllOrders();
+            var orders = OrderDAO.Instance.GetAllOrders()
+            .Select(o => new OrderDisplayModel
+                {
+                    OrderId = o.OrderId,
+                    CustomerName = o.Customer.CompanyName,
+                    EmployeeName = o.Employee.Name,
+                    OrderDate = o.OrderDate,
+                    ProductNames = string.Join(", ", o.OrderDetails.Select(d => d.Product.ProductName)),
+                    Quantities = string.Join(", ", o.OrderDetails.Select(d => d.Quantity.ToString())),
+                    TotalAmount = o.OrderDetails.Sum(d => d.UnitPrice * d.Quantity * (1 - (decimal)d.Discount))
+                })
+                .ToList();
+
+            dgOrders.ItemsSource = orders;
         }
 
         private void btnAddDetail_Click(object sender, RoutedEventArgs e)
@@ -129,19 +144,35 @@ namespace LeNguyenAnNinhWpfApp
                         return;
                     }
 
-                    // Giả sử có phương thức thêm đơn hàng ở đây
+                    // Tạo bản sao của currentDetails, không gán OrderId
+                    var safeDetails = currentDetails.Select(d => new OrderDetail
+                    {
+                        ProductId = d.ProductId,
+                        UnitPrice = d.UnitPrice,
+                        Quantity = d.Quantity,
+                        Discount = d.Discount,
+                        Product = d.Product // nếu bạn dùng navigation property
+                    }).ToList();
+
                     Order newOrder = new Order
                     {
                         OrderId = orderId,
                         CustomerId = customerId,
                         EmployeeId = employeeId,
                         OrderDate = orderDate,
-                        OrderDetails = currentDetails
+                        OrderDetails = safeDetails
                     };
 
-                    OrderDAO.Instance.AddOrder(newOrder);
+                    bool add = OrderDAO.Instance.AddOrder(newOrder);
+                    if (!add)
+                    {
+                        MessageBox.Show("Đơn hàng không được tạo thành công. Vui lòng kiểm tra chi tiết.");
+                        return;
+                    }
 
                     MessageBox.Show("Đơn hàng đã được tạo thành công.");
+                    LoadData();
+                    ClearInputFields(); // nên có hàm để reset textbox sau khi thêm xong
                 }
                 else
                 {
@@ -151,8 +182,18 @@ namespace LeNguyenAnNinhWpfApp
             catch (Exception ex)
             {
                 Debug.WriteLine("Error in btnNewOrder_Click: " + ex.Message);
-                MessageBox.Show("Có lỗi xảy ra khi tạo đơn hàng.");
+                MessageBox.Show("Có lỗi xảy ra khi tạo đơn hàng:\n" + ex.Message);
             }
+        }
+        private void ClearInputFields()
+        {
+            txtOrderId.Clear();
+            txtQuantity.Clear();
+            txtDiscount.Clear();
+            dpOrderDate.SelectedDate = null;
+            currentDetails.Clear();
+            dgOrderDetails.ItemsSource = null;
+            dgOrderDetails.ItemsSource = currentDetails;
         }
         private void dgOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
