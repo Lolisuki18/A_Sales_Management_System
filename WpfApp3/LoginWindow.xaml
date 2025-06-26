@@ -6,11 +6,43 @@
         xmlns:local="clr-namespace:LeNguyenAnNinhWpfApp"
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800">
-    <StackPanel>
-        <Label Content="Username or Phone" />
-        <TextBox Text="{Binding Username}" />
-        <Label Content="Password" />
-        <TextBox Text="{Binding Password}"/>
-        <Button Content="Login" Command="{Binding LoginCommand}"/>
-    </StackPanel>
+    <Grid Margin="10">
+        <TabControl x:Name="tabLogin">
+            <!-- Admin Login -->
+            <TabItem Header="Admin Login">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Username:"/>
+                    <TextBox x:Name="txtUsername" Grid.Row="1" Margin="0,5"/>
+
+                    <Label Content="Password:" Grid.Row="2" Margin="0,10,0,0"/>
+                    <PasswordBox x:Name="txtPassword" Grid.Row="3" Margin="0,5"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Customer Login -->
+            <TabItem Header="Customer Login">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Phone:"/>
+                    <TextBox x:Name="txtPhone" Grid.Row="1" Margin="0,5"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,10">
+            <Button Content="Login" Width="80" Margin="5" Click="btnLogin_Click"/>
+            <Button Content="Exit" Width="80" Margin="5" Click="btnExit_Click"/>
+        </StackPanel>
+    </Grid>
 </Window>

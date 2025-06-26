@@ -1,0 +1,28 @@
+﻿<Window x:Class="LeNguyenAnNinhWpfApp.RoleWindown"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeNguyenAnNinhWpfApp"
+        mc:Ignorable="d"
+        Title="Lê Nguyễn An Ninh - RoleWindown" Height="450" Width="800">
+    <DockPanel>
+        <!-- Sidebar Menu -->
+        <StackPanel DockPanel.Dock="Left" Width="180" Background="#EEE">
+            <!-- Admin Buttons -->
+            <Button x:Name="btnCustomerMng" Content="Customers"  Margin="5"/>
+            <Button x:Name="btnProductMng" Content="Products"  Margin="5"/>
+            <Button x:Name="btnOrderMng" Content="Orders"  Margin="5"/>
+            <Button x:Name="btnReportMng" Content="Reports"  Margin="5"/>
+
+            <!-- Customer Buttons -->
+            <Button x:Name="btnMyOrders" Content="My Orders"  Margin="5"/>
+            <Button x:Name="btnEditProfile" Content="Edit Profile"  Margin="5"/>
+
+            <Button Content="Logout" Margin="5" Background="Tomato" Foreground="White"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <ContentControl x:Name="MainContent" />
+    </DockPanel>
+</Window>
