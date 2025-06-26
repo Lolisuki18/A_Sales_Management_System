@@ -66,7 +66,7 @@
 
         <!-- Order List -->
         <GroupBox Header="All Orders" Grid.Row="2" Margin="0,10,0,0">
-            <DataGrid x:Name="dgOrders" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgOrders_SelectionChanged">
+            <DataGrid x:Name="dgOrders" AutoGenerateColumns="False" IsReadOnly="True" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="80"/>
                     <DataGridTextColumn Header="Customer" Binding="{Binding CustomerName}" Width="*"/>
