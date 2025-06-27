@@ -49,87 +49,45 @@ namespace LeNguyenAnNinhWpfApp
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            try
+            var dialog = new CustomerDialog();
+            if (dialog.ShowDialog() == true)
             {
-               int customerId = txtId.Text == "" ? 0 : int.Parse(txtId.Text);
-                if(customerId != 0)
+                var customer = dialog.Customer;
+                if (CustomerDAO.Instance.AddCustomer(customer))
                 {
-                  MessageBox.Show("ID đã được sử dụng. Vui lòng để trống hoặc chọn ID khác.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
+                    MessageBox.Show("Đã thêm khách hàng thành công.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoadCustomerList();
                 }
-                //  string CompanyName 
-                string companyName = txtCompany.Text;
-                // string? ContactName 
-                string contactName = txtContact.Text;
-                // string? ContactTitle 
-                string contactTitle = txtTitle.Text;
-                //string? Address 
-                string address = txtAddress.Text;
-                // string? Phone 
-                string phone = txtPhone.Text;
-                var customer = new Customer
+                else
                 {
-                    CompanyName = companyName,
-                    ContactName = contactName,
-                    ContactTitle = contactTitle,
-                    Address = address,
-                    Phone = phone
-                };
-                // Thêm khách hàng mới vào cơ sở dữ liệu
-                CustomerDAO.Instance.AddCustomer(customer);
-                MessageBox.Show($"Đã thêm khách hàng thành công:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                // Tải lại danh sách khách hàng
-                LoadCustomerList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi thêm khách hàng: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Thêm khách hàng thất bại.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-      
-
         private void txtEdit_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (dgCustomers.SelectedItem is Customer selected)
             {
-                if (!int.TryParse(txtId.Text, out int customerId))
+                var dialog = new CustomerDialog(selected);
+                if (dialog.ShowDialog() == true)
                 {
-                    MessageBox.Show("ID không hợp lệ hoặc chưa chọn khách hàng.");
-                    return;
+                    var customer = dialog.Customer;
+                    customer.CustomerId = selected.CustomerId; // Đảm bảo giữ nguyên ID
+                    if (CustomerDAO.Instance.UpdateCustomer(customer))
+                    {
+                        MessageBox.Show("Đã chỉnh sửa khách hàng thành công.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadCustomerList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Chỉnh sửa khách hàng thất bại.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                //  string CompanyName 
-                string companyName = txtCompany.Text;
-                // string? ContactName 
-                string? contactName = txtContact.Text;
-                // string? ContactTitle 
-                string? contactTitle = txtTitle.Text;
-                //string? Address 
-                string? address = txtAddress.Text;
-                // string? Phone 
-                string? phone = txtPhone.Text;
-                var customer = new Customer
-                {
-                    CustomerId = customerId, 
-                    CompanyName = companyName,
-                    ContactName = contactName,
-                    ContactTitle = contactTitle,
-                    Address = address,
-                    Phone = phone
-                };
-                // Thêm khách hàng mới vào cơ sở dữ liệu
-               bool update =  CustomerDAO.Instance.UpdateCustomer(customer);
-                if (!update)
-                {
-                    MessageBox.Show($"Đã chỉnh sửa khách hàng thất bại:", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                MessageBox.Show($"Đã chỉnh sửa khách hàng thành công:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                // Tải lại danh sách khách hàng
-                LoadCustomerList();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Lỗi khi chỉnh sửa khách hàng: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Vui lòng chọn khách hàng để sửa.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

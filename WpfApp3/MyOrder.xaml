@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:LeNguyenAnNinhWpfApp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Lê Nguyễn An Ninh - SE181799 - MyOrder -->
     <Grid Background="White">
         <DataGrid x:Name="dgOrderHistory" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>

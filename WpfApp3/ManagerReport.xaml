@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:LeNguyenAnNinhWpfApp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Lê Nguyễn An Ninh - SE181799 - ManagerReport -->
     <Grid Background="White" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

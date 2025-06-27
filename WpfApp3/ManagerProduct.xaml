@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LeNguyenAnNinhWpfApp"
              mc:Ignorable="d" Height="534" Width="1065"
              >
-    <!-- Lê Nguyễn An Ninh - ProductManager -->
+    <!-- Lê Nguyễn An Ninh -SE181799- ProductManager -->
     <Grid Background="White" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
