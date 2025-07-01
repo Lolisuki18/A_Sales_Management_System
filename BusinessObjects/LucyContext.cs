@@ -33,7 +33,8 @@ public partial class LucyContext : DbContext
     private string GetConnectionString()
     {
         // Gắn chuỗi kết nối trực tiếp vào đây (hardcoded)
-        return "Server=localhost,1433;Database=Lucy_SalesData;User Id=sa;Password=12345;TrustServerCertificate=True";
+        return "Server=ADMIN-PC\\NINHLE;Database=Lucy_SalesData;User Id=sa;Password=12345;TrustServerCertificate=True";
+
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
